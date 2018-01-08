@@ -1,0 +1,28 @@
+.datagrid-row {
+    height: 42px;
+    text-align:center;
+}
+/*更改表格标题文字大小*/
+.datagrid-header span {     font-size: 20px !important; }
+.datagrid-cell{   //设置字体大小
+margin: 0;
+    padding: 0 4px;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    height: 18px;
+    line-height: 18px;
+    font-size: 20px;
+}
+/*//更改表格中单元格行间距*/
+#table .datagrid-btable tr{height: 35px;}
+
+/*//更改表格标题的行间距*/
+.panel-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 42px;
+}
+.magin_8{
+    margin: 0px 5px 0px 3px;
+}

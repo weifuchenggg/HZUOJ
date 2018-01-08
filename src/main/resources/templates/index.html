@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script type="text/javascript" src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery-easyui/1.5.21/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery-easyui/1.5.21/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/vue/2.5.3-1/vue.js"></script>
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/webjars/jquery-easyui/1.5.21/css/easyui.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/js/index.js"></script>
+</head>
+<style>
+    .container,.col-md-12,.row{  margin: 0px;padding: 0px;width: 100%;  }
+    .navbar{margin-bottom: 0px;}
+    .stroke{
+            color: transparent;
+            -webkit-text-stroke: 1px black;
+            letter-spacing: 0.04em;
+            background-color: #ebe5ff;
+        }
+</style>
+<script  th:inline="javascript">
+    $(function () {
+        var src=[[${src}]];
+        naviframe_src(src);
+    })
+
+
+</script>
+<body>
+<div class="container" >
+    <div class="row clearfix" >
+        <div class="col-md-12 ">
+            <h2 class="text-left stroke"  style="height: 60px;margin: 0px;color: #48b6ff;text-shadow: #a2f33e 2px 2px 2px" >
+                <img src="/img/log.jpg" style="border-radius:50%; overflow:hidden;margin-left: 5px;" width="60px" height="60px" /><span style="padding-top: 15px;padding-left: 15px;"> 计算机程序设计竞赛在线训练系统</span>
+            </h2>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
+                        <span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <a class="navbar-brand active" href="#" onclick="naviframe_src('/nav/index')" >首页</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-right: 10px;">
+                    <ul class="nav navbar-nav">
+                        <li >
+                            <a href="#"  onclick="naviframe_src('/problem/index')" >题库</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="naviframe_src('/user/toRank')" >排行榜</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="naviframe_src('/nav/submit')" >提交记录</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="naviframe_src('/nav/competition')" >竞赛</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="naviframe_src('/nav/competitionRanking')" >竞赛排行榜</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">大神<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">个人信息</a>
+                                </li>
+                                <li>
+                                    <a href="#">设置</a>
+                                </li>
+                                <li>
+                                    <a href="#">退出</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row clearfix"  >
+        <div class="col-md-12 column">
+            <!--导航页面-->
+            <iframe id="naviframe"  style="width:100%;" scrolling="no"  frameborder="0" src="#"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>
