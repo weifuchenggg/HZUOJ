@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -21,12 +22,14 @@ public class Index {
 
     @RequestMapping("/login")
     @ResponseBody
-    public String login(@RequestBody User user, Model model){
+    public String login(@RequestBody User user, Model model,HttpSession session){
         System.out.println(user);
         List<User> lists=userMapper.selectListByFilter("where username='"+user.getUsername()+"'");
         if(lists==null || lists.size()==0 || lists.get(0).getPassword().equals(user.getPassword())==false){
             return "error";
         }
+        user=lists.get(0);
+        session.setAttribute("user",user);
         return "sucess";
     }
 

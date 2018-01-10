@@ -106,5 +106,20 @@ public class User extends Model<User> {
 		this.autograph = autograph;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", ac=" + ac +
+				", wa=" + wa +
+				", rank=" + rank +
+				", img='" + img + '\'' +
+				", role='" + role + '\'' +
+				", createtime=" + createtime +
+				", vip='" + vip + '\'' +
+				", autograph='" + autograph + '\'' +
+				'}';
+	}
 }
 
