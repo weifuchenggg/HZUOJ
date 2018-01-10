@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html  lang="en"
+       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script type="text/javascript" src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery-easyui/1.5.21/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery-easyui/1.5.21/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/vue/2.5.3-1/vue.js"></script>
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/webjars/jquery-easyui/1.5.21/css/easyui.css" rel="stylesheet"/>
+    <link href="/css/comm.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/js/dictionary.js"></script>
+</head>
+<style>
+    /* 表格高度  */
+    .row{
+        height: 80px;margin-bottom: 0px;
+    }
+</style>
+<body>
+    <div id="app" style="margin-top: 50px;">
+
+        <div class="container">
+			<div class="row">
+				<div class="col-xs-2" ></div>
+				<div class="col-xs-6" >
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" style="width:150px">systemid:</span>
+						<input type="text" class="form-control" v-model="dictionary.systemid" :readonly="readonly"  />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2" ></div>
+				<div class="col-xs-6" >
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" style="width:150px">kind:</span>
+						<input type="text" class="form-control" v-model="dictionary.kind" :readonly="readonly"  />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2" ></div>
+				<div class="col-xs-6" >
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" style="width:150px">code:</span>
+						<input type="text" class="form-control" v-model="dictionary.code" :readonly="readonly"  />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2" ></div>
+				<div class="col-xs-6" >
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" style="width:150px">detail:</span>
+						<input type="text" class="form-control" v-model="dictionary.detail" :readonly="readonly"  />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2" ></div>
+				<div class="col-xs-6" >
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" style="width:150px">detail2:</span>
+						<input type="text" class="form-control" v-model="dictionary.detail2" :readonly="readonly"  />
+					</div>
+				</div>
+			</div>
+
+            <div class="row ">
+                <div class="col-xs-4" >
+                </div>
+                <div class="col-xs-6" >
+                    <input type="button" class="btn btn-success btn-lg" id="add" value="新增" v-if="vis_add"    v-on:click="btn_add" />
+                    <input type="button" class="btn btn-success btn-lg" id="save"  value="保存" v-if="vis_save"  v-on:click="btn_save"  />
+                    <input style="margin-left: 30px;" type="button" class="btn btn-success btn-lg" id="back"  value="返回"  v-on:click="btn_back"  />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<!--vue .js   数据绑定-->
+<script th:inline="javascript">
+    new Vue({
+        el:"#app",
+        data:{
+            //从后台获取初始化数据
+            readonly:[[${readonly}]],
+            vis_add:[[${vis_add}]],
+            vis_save:[[${vis_save}]],
+            dictionary:[[${dictionary}]]
+        },
+        methods:{
+            btn_add :add,
+            btn_save:update,
+            btn_back:to_index
+        }
+    })
+</script>
+</html>

@@ -120,3 +120,21 @@ function update() {
         }
     });
 }
+
+//提交代码
+function tjdm() {
+    var content=UE.getEditor('editor2').getPlainTxt();
+    var language=this.language;
+    var num=this.problem.num;
+    $.ajax({
+        type: "POST",
+        url: "/result/add",
+        data: {num:num,language:language,content:content},
+        success: function(data){
+            alert("提交成功!!");
+            to_index();
+        },
+        error:function(xhr,textStatus){
+        }
+    });
+}
