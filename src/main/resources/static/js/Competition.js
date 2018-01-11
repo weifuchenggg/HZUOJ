@@ -28,6 +28,11 @@ function register_bm(value, row, index) {
     }
     return "<button type=\"button\" class=\"btn btn-success\">value</button>";
 }
+
+//跳转到竞赛主页
+function to_CompetIndex(value, row, index) {
+    return '<a href="/competition/competIndex?id='+row.systemid+'" >'+value+'</a> ';
+}
 /*easyui  表单绑定*/
 $(function () {
     $('#table').datagrid({
@@ -35,7 +40,7 @@ $(function () {
         //每列的标题
         columns:[[
             {field:'systemid',title:'systemid',width:100,sortable:true,align:'center',hidden:'true'},
-			{field:'competname',title:'比赛名称',width:300,sortable:true,align:'center'},
+			{field:'competname',title:'比赛名称',width:300,sortable:true,align:'center', formatter: to_CompetIndex},
 			{field:'author',title:'作者',width:100,sortable:true,align:'center'},
 			{field:'starttime',title:'开始时间',width:200,sortable:true,align:'center', formatter: DateFormat},
 			{field:'endtime',title:'结束时间',width:200,sortable:true,align:'center', formatter: DateFormat},

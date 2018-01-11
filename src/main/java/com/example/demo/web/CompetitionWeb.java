@@ -30,6 +30,13 @@ public class CompetitionWeb {
         return "/competition/competitionUi";
     }
 
+    @RequestMapping("/competIndex")
+    public String competIndex(Model model,String id){
+        Competition competition=competitionService.selectById(id);
+        model.addAttribute("competition",competition);
+        return "/competition/CompetIndex";
+    }
+
     @Autowired
     CompetitionService competitionService;
 

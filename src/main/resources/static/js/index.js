@@ -6,9 +6,6 @@ function reinitIframe(){
 $(function () {
     //自动设置高度
     window.setInterval("reinitIframe()", 200);
-
-
-
 });
 
 //需要跳转的链接
