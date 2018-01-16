@@ -59,4 +59,9 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
     public List<Problem> selectAll(Pagination page){
         return problemMapper.selectAll(page);
     }
+
+    @Override
+    public int selectCountByFilter(String sql) {
+        return problemMapper.selectCountByFilter(sql);
+    }
 }

@@ -27,6 +27,12 @@ public class ProblemWeb {
         return "/problem/problemUi";
     }
 
+    @RequestMapping("/competIndex")
+    public String competIndex(String id,Model model){
+        model.addAttribute("id",id);
+        return "/problem/problemCompetUi";
+    }
+
     @Autowired
     ProblemService problemService;
 
@@ -34,11 +40,32 @@ public class ProblemWeb {
     @ResponseBody
     public Map<String,Object> getproblem(int page, int rows,String filter,String sort,String order){
         System.out.println("page="+page+"    rows="+rows+"   filter="+filter+"   "+sort+" "+ order);
-        List<Problem> lists=problemService.selectAll();
+        List<Problem> lists;
         int total=problemService.selectCount(new EntityWrapper<>());
         //分页
         Page<Map<String,Object>> pg=new Page(page,rows);
         lists=problemService.selectListByFilter(filter,sort,order,pg);
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("total",total);
+        map.put("rows",lists);
+        return map;
+    }
+
+    @RequestMapping("/getproblemCompet")
+    @ResponseBody
+    public Map<String,Object> getproblemCompet(int page, int rows,String filter,String sort,String order,String id){
+        System.out.println("page="+page+"    rows="+rows+"   filter="+filter+"   "+sort+" "+ order+"   id="+id);
+        List<Problem> lists;
+        filter=" competname= '"+id+"' ";
+        int total=problemService.selectCountByFilter("where "+filter);
+        //分页
+        Page<Map<String,Object>> pg=new Page(page,rows);
+        lists=problemService.selectListByFilter(filter,sort,order,pg);
+        int i=65;
+        for (Problem problem:lists){
+            problem.setBm(((char)(i))+"");
+            i++;
+        }
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("total",total);
         map.put("rows",lists);
@@ -89,12 +116,14 @@ public class ProblemWeb {
     }
 
     @RequestMapping("/toView")  //跳到查看页面
-    public String toView(Model model,String id){
+    public String toView(Model model,String id,String bm){
         Problem problem=problemService.selectById(id);
+        System.out.println(problem);
         model.addAttribute("readonly",true);
         model.addAttribute("vis_save",false);   //保存按钮隐藏
         model.addAttribute("vis_add",false);   //增加按钮隐藏
         model.addAttribute("problem",problem);   //用户信息
+        model.addAttribute("bm",bm);
         return crud;
     }
 

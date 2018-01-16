@@ -114,7 +114,7 @@
 					<input type="button" class="btn btn-success btn-lg" id="add" value="新增" v-if="vis_add"    v-on:click="btn_add" />
 					<input type="button" class="btn btn-success btn-lg" id="tjdm" value="提交代码" v-if="readonly"    v-on:click="btn_tjdm" />
                     <input type="button" class="btn btn-success btn-lg" id="save"  value="保存" v-if="vis_save"  v-on:click="btn_save"  />
-                    <input style="margin-left: 30px;" type="button" class="btn btn-success btn-lg" id="back"  value="返回"  v-on:click="btn_back"  />
+                    <!--<input style="margin-left: 30px;" type="button" class="btn btn-success btn-lg" id="back"  value="返回"  v-on:click="btn_back"  />-->
 					<br/><br/><br/><br/>
                	</div>
             </div>
@@ -134,6 +134,7 @@
             vis_add:[[${vis_add}]],
             vis_save:[[${vis_save}]],
             problem:[[${problem}]],
+			bm:[[${bm}]],
             language:1
         },
         methods:{

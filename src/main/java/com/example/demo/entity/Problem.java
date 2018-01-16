@@ -2,6 +2,8 @@ package com.example.demo.entity;
 import com.baomidou.mybatisplus.activerecord.Model;
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class Problem extends Model<Problem> {
 	private Date createtime;
 	private Integer ac;
 	private Integer error;
+	private String bm;
 
 	@Override
 	protected Serializable pkVal() {
@@ -140,6 +143,14 @@ public class Problem extends Model<Problem> {
 
 	public void setError(Integer error) {
 		this.error = error;
+	}
+
+	public String getBm() {
+		return bm;
+	}
+
+	public void setBm(String bm) {
+		this.bm = bm;
 	}
 
 	@Override

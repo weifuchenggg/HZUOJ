@@ -39,14 +39,14 @@ $(function () {
         //每列的标题
         columns:[[
             {field:'systemid',title:'systemid',width:100,sortable:true,align:'center',hidden:'true'},
-			{field:'num',title:'题号',width:100,sortable:true,align:'center'},
+			{field:'num',title:'题号',width:100,sortable:true,align:'center',hidden:'true'},
+            {field:'bm',title:'题号',width:100,sortable:true,align:'center'},
 			{field:'user',title:'用户名',width:200,sortable:true,align:'center'},
 			{field:'language',title:'语言',width:100,sortable:true,align:'center'},
             {field:'state',title:'状态',width:100,sortable:true,align:'center', formatter: state_css},
 			{field:'content',title:'查看代码',width:100,sortable:true,align:'center', formatter: to_view},
             {field:'createtime',title:'提交时间',width:200,sortable:true,align:'center', formatter: DateFormat},
 			{field:'type',title:'type',width:100,sortable:true,align:'center',hidden:'true'},
-			
             ]
         ],
         fitColumns:true,   //列填满grid
@@ -61,6 +61,9 @@ $(function () {
         sortable:true,
         sortName: 'createtime',
         sortOrder: 'desc',
+        queryParams:{
+            filter:"competname='"+id+"'"
+        },
         pageList : [5,10,15,20,25,30,35,40,45,50],
         toolbar: "#tb",  //工具锁定  id=tb 的div
     });

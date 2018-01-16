@@ -68,6 +68,7 @@ public class Index {
         if (src==null || src.equals("")){
             src="/nav/index";
         }
+        src=src.replace("___","&");
         model.addAttribute("src",src);
         System.out.println(src);
         return "index";

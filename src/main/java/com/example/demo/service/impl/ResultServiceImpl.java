@@ -71,4 +71,9 @@ public class ResultServiceImpl extends ServiceImpl<ResultMapper, Result> impleme
     public List<Result> selectAll(Pagination page){
         return resultMapper.selectAll(page);
     }
+
+    @Override
+    public int selectCountByFilter(String sql) {
+        return resultMapper.selectCountByFilter(sql);
+    }
 }

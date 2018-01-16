@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
@@ -13,11 +15,41 @@
     <link href="/css/comm.css" rel="stylesheet"/>
     <script type="text/javascript" src="/js/competition.js"></script>
 </head>
-<script>
+<style>
+    .panel-title{
+        font-size: 25px;
+        margin-left: 20px;
+    }
+    .panel-header{
+     background: linear-gradient(to bottom,#EFF5FF 0,rgb(255, 255, 255) 100%)
+    }
+</style>
+<body>
+    <div class="easyui-layout" style="width:100%;height: 100px">
+        <div region="west" split="true" title="竞赛信息" style="width:200px;">
+            <p style="padding:5px;margin:0;"></p>
+            <ul class="nav nav-pills nav-stacked" style="margin-left: 10px; " >
+                <li role="presentation"  onclick="naviframe_src('/competition/toView')"><a href="#">信息</a></li>
+                <li role="presentation"  onclick="naviframe_src('/problem/competIndex')" ><a href="#">题目</a></li>
+                <li role="presentation"   onclick="naviframe_src('/user/toRank')"><a href="#">排名</a></li>
+                <li role="presentation"  onclick="naviframe_src('/result/competIndex')"><a href="#">提交记录</a></li>
+            </ul>
+        </div>
+        <div id="content" region="center" th:title="${competition.competname}" style="padding:5px;">
+            <iframe id="naviframe"  style="width:100%;height: 500px;" scrolling="no"  frameborder="0" src="/competition/index"></iframe>
+        </div>
+    </div>
+</body>
+<!--vue .js   数据绑定-->
+<script th:inline="javascript">
+    //从后台获取初始化数据
+    var competition=[[${competition}]];
+
     //需要跳转的链接
     function naviframe_src(src) {
-        $("#naviframe").attr("src", src);
+        $("#naviframe").attr("src", src+"?"+"id="+competition.systemid);
     }
+
     //设置导航功能页面的高度
     function reinitIframe(){
         var iframeHeight = $("#naviframe").contents().find("body").height();
@@ -28,25 +60,9 @@
         });
     }
     $(function () {
-            //自动设置高度
-            window.setInterval("reinitIframe()", 200);
+        $("#naviframe").attr("src", "/competition/toView"+"?"+"id="+competition.systemid);
+        //自动设置高度
+        window.setInterval("reinitIframe()", 200);
     })
-
 </script>
-<body>
-    <div class="easyui-layout" style="width:100%;height: 100px">
-        <div region="west" split="true" title="竞赛信息" style="width:200px;">
-            <p style="padding:5px;margin:0;"></p>
-            <ul class="nav nav-pills nav-stacked" style="font-size: 20px; " >
-                <li role="presentation"><a href="#">简介</a></li>
-                <li role="presentation" ><a href="#">题目</a></li>
-                <li role="presentation" ><a href="#">排名</a></li>
-                <li role="presentation" ><a href="#">提交记录</a></li>
-            </ul>
-        </div>
-        <div id="content" region="center" title="Language" style="padding:5px;font-size: 25px;">
-            <iframe id="naviframe"  style="width:100%;height: 500px;" scrolling="no"  frameborder="0" src="/competition/index"></iframe>
-        </div>
-    </div>
-</body>
 </html>

@@ -21,4 +21,5 @@ public interface ProblemService extends IService<Problem> {
     public List<Problem> selectListByFilter(String filter, String sort, String order);
     public List<Map<String,Object>> selectListBysql(String sql);
     public List<Problem> selectAll(Pagination page);
+    public int selectCountByFilter(@Param("sql") String sql);
 }

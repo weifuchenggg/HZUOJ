@@ -26,6 +26,12 @@ public class ResultWeb {
         return "/result/resultUi";
     }
 
+    @RequestMapping("/competIndex")
+    public String competIndex(Model model,String id){
+        model.addAttribute("id",id);
+        return "/result/resultCompetUi";
+    }
+
     @Autowired
     ResultService resultService;
 
@@ -34,7 +40,11 @@ public class ResultWeb {
     public Map<String,Object> getresult(int page, int rows,String filter,String sort,String order){
         System.out.println("page="+page+"    rows="+rows+"   filter="+filter+"   "+sort+" "+ order);
         List<Map<String,Object>> lists;
-        int total=resultService.selectCount(new EntityWrapper<>());
+        String gl="";
+        if (filter!=null && !filter.equals("")){
+            gl="where "+filter;
+        }
+        int total=resultService.selectCountByFilter(gl);
         //分页
         Page<Map<String,Object>> pg=new Page(page,rows);
         lists=resultService.selectListMapByFilter(filter,sort,order,pg);

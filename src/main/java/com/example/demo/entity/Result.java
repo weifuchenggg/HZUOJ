@@ -19,6 +19,8 @@ public class Result extends Model<Result> {
 	private String language;
 	private String content;
 	private String type;
+	private String competname;
+	private String bm;
 
 	@Override
 	protected Serializable pkVal() {
@@ -88,6 +90,22 @@ public class Result extends Model<Result> {
 		this.type = type;
 	}
 
+	public String getCompetname() {
+		return competname;
+	}
+
+	public void setCompetname(String competname) {
+		this.competname = competname;
+	}
+
+	public String getBm() {
+		return bm;
+	}
+
+	public void setBm(String bm) {
+		this.bm = bm;
+	}
+
 	@Override
 	public String toString() {
 		return "Result{" +
@@ -99,6 +117,8 @@ public class Result extends Model<Result> {
 				", language='" + language + '\'' +
 				", content='" + content + '\'' +
 				", type='" + type + '\'' +
+				", competname='" + competname + '\'' +
+				", bm='" + bm + '\'' +
 				'}';
 	}
 }

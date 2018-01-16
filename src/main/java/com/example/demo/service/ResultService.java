@@ -22,4 +22,5 @@ public interface ResultService extends IService<Result> {
     public List<Map<String,Object>> selectListBysql(String sql);
     public List<Map<String,Object>> selectListMapByFilter(String filter, String sort, String order, Pagination page);
     public List<Result> selectAll(Pagination page);
+    public int selectCountByFilter(String sql);
 }

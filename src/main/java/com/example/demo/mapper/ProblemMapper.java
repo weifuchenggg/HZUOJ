@@ -27,4 +27,6 @@ public interface ProblemMapper extends BaseMapper<Problem> {
     public List<Problem> selectListByFilter(@Param("sql") String sql);
     @Select("${sql}")
     public List<Map<String,Object>> selectListBysql(@Param("sql") String sql);
+    @Select("select count(1) from problem  ${sql}")
+    public int selectCountByFilter(@Param("sql") String sql);
 }

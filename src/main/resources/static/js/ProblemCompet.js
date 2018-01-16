@@ -3,22 +3,23 @@ function to_index() {
 }
 
 //打开新窗口
-function new_windows(src,id) {
-    window.open("/hzuoj/index?src="+"/problem/toView"+"?id="+id);
+function new_windows(src,id,bm) {
+    window.open("/hzuoj/index?src="+"/problem/toView"+"?id="+id+"___bm="+bm);
 }
 
 //跳转到题目的内容
 function to_view(value, row, index) {
-    return  '<a href="#" onclick="new_windows(\'/problem/toView\',\''+row.systemid+'\')">'+value+'</a> ';
+    return  '<a href="#" onclick="new_windows(\'/problem/toView\',\''+row.systemid+'\',\''+row.bm+'\')">'+value+'</a> ';
 }
 /*easyui  表单绑定*/
 $(function () {
     $('#table').datagrid({
-        url:'/problem/getproblem',
+        url:'/problem/getproblemCompet',
         //每列的标题
         columns:[[
             {field:'systemid',title:'systemid',width:100,sortable:true,align:'center',hidden:'true'},
-			{field:'num',title:'题号',width:100,sortable:true,align:'center'},
+			{field:'num',title:'题号',width:100,sortable:true,align:'center',hidden:'true'},
+            {field:'bm',title:'题号',width:100,sortable:true,align:'center'},
 			{field:'title',title:'标题',width:300,sortable:true,align:'center', formatter: to_view},
 			{field:'content',title:'content',width:100,sortable:true,align:'center',hidden:'true'},
 			{field:'start',title:'start',width:100,sortable:true,align:'center',hidden:'true'},
@@ -45,11 +46,11 @@ $(function () {
         singleSelect:true,   //单选
         sortable:true,
         sortName: 'num',
-        sortOrder: 'asc',
+        sortOrder:'asc',
+        queryParams:{
+            "id":id
+        },
         pageList : [5,10,15,20,25,30,35,40,45,50],
-        frozenColumns: [[     //多选
-            { field: 'ck', checkbox: true,width:200 },
-        ]],
         toolbar: "#tb",  //工具锁定  id=tb 的div
     });
 });
@@ -126,21 +127,13 @@ function tjdm() {
     var content=UE.getEditor('editor2').getPlainTxt();
     var language=this.language;
     var num=this.problem.num;
-    var bm=this.bm;
-    var competname=this.problem.competname;
-
     $.ajax({
         type: "POST",
         url: "/result/add",
         data: {num:num,language:language,content:content,competname:competname,bm:bm},
         success: function(data){
             alert("提交成功!!");
-            if (bm==null || bm==""){
-                window.location.href="/result/index";
-            }else {
-                window.location.href="/problem/index";
-            }
-
+            window.location.href="/result/index";
         },
         error:function(xhr,textStatus){
         }

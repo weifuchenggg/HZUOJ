@@ -25,6 +25,8 @@ public interface ResultMapper extends BaseMapper<Result> {
     public List<Result> selectListByFilter(@Param("sql") String sql,Pagination page);
     @Select("select * from result  ${sql}")
     public List<Result> selectListByFilter(@Param("sql") String sql);
+    @Select("select count(1) from result  ${sql}")
+    public int selectCountByFilter(@Param("sql") String sql);
     @Select("${sql}")
     public List<Map<String,Object>> selectListBysql(@Param("sql") String sql);
     @Select("select * from result  ${sql}")
