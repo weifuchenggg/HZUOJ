@@ -2,10 +2,10 @@ package com.example.demo.web;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.example.demo.entity.Competition;
+import com.example.demo.entity.Register;
 import com.example.demo.entity.User;
-import com.example.demo.service.CompetitionService;
 import com.example.demo.service.RegisterService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,50 +21,39 @@ import java.util.Map;
 import java.util.function.ObjDoubleConsumer;
 
 @Controller
-@RequestMapping("/competition")
-public class CompetitionWeb {
+@RequestMapping("/register")
+public class RegisterWeb {
 
-    private final String crud="/competition/CompetitionCrud";  //增删改查页面
+    private final String crud="/register/RegisterCrud";  //增删改查页面
 
     @RequestMapping("/index")
     public String index(){
-        return "/competition/competitionUi";
+        return "/register/registerUi";
     }
 
-    @RequestMapping("/competIndex")
-    public String competIndex(Model model,String id){
-        Competition competition=competitionService.selectById(id);
-        model.addAttribute("competition",competition);
-        return "/competition/CompetIndex";
+    @RequestMapping("/toRank")
+    public String toRank(String id, Model model){
+        model.addAttribute("systemid",id);
+        return "/register/registerUi";
     }
-
-    @Autowired
-    CompetitionService competitionService;
 
     @Autowired
     RegisterService registerService;
 
-    @RequestMapping("/getcompetition")
+    @RequestMapping("/getregister")
     @ResponseBody
-    public Map<String,Object> getcompetition(int page, int rows,String filter,String sort,String order,HttpSession session){
+    public Map<String,Object> getregister(int page, int rows,String filter,String sort,String order){
         System.out.println("page="+page+"    rows="+rows+"   filter="+filter+"   "+sort+" "+ order);
-        List<Competition> lists=competitionService.selectAll();
-        int total=competitionService.selectCount(new EntityWrapper<>());
+        List<Register> lists=registerService.selectAll();
+        String gl="";
+        if (filter!=null && !filter.equals("")){
+            gl="where "+filter;
+        }
+        int total=registerService.selectCountByFilter(gl);
         //分页
         Page<Map<String,Object>> pg=new Page(page,rows);
-        lists=competitionService.selectListByFilter(filter,sort,order,pg);
+        lists=registerService.selectListByFilter(filter,sort,order,pg);
         Map<String,Object> map=new HashMap<String,Object>();
-
-        /*获取登录信息*/
-        User user=(User)session.getAttribute("user");
-        
-        for (Competition competition: lists){
-            int k=registerService.selectCountByFilter("where username='"+user.getUsername()+"' and competname='"+competition.getSystemid()+"'");
-            if (k==0)
-                competition.setRegister("点击报名");
-            else
-                competition.setRegister("报名成功");
-        }
         map.put("total",total);
         map.put("rows",lists);
         return map;
@@ -72,54 +61,71 @@ public class CompetitionWeb {
 
     @RequestMapping("/toAdd")   //跳转新增页面
     public String toAdd(Model model){
-        Competition competition=new Competition();
+        Register register=new Register();
         model.addAttribute("readonly",false);
         model.addAttribute("vis_add",true);   //增加按钮显示
         model.addAttribute("vis_save",false);   //保存按钮隐藏
-        model.addAttribute("competition",competition);   //用户信息
+        model.addAttribute("register",register);   //用户信息
         return crud;
     }
 
     @RequestMapping("/add")   //新增
     @ResponseBody
-    public String add(Model model,@RequestBody Competition competition){
-        System.out.println(competition);
-        competitionService.insert(competition);
+    public String add(Model model,@RequestBody Register register){
+        System.out.println(register);
+        registerService.insert(register);
+        return "success";
+    }
+
+    @RequestMapping("/bm")   //新增
+    @ResponseBody
+    public String bm(Model model,String competname,HttpSession session){
+        Register register=new Register();
+        /*获取登录信息*/
+        User user=(User)session.getAttribute("user");
+
+        register.setCompetname(competname);
+        register.setUsername(user.getUsername());
+        register.setAc(0);
+        register.setTime(0);
+        register.setError(0);
+        System.out.println(register);
+        registerService.insert(register);
         return "success";
     }
 
     @RequestMapping("/del")  //删除
     @ResponseBody
     public String del(String id){
-        competitionService.deleteById(id);
+        registerService.deleteById(id);
         return "sucess";
     }
 
     @RequestMapping("/toUpdate")  //跳到修改页面
     public String toUpdate(Model model,String id){
-        Competition competition=competitionService.selectById(id);
+        Register register=registerService.selectById(id);
         model.addAttribute("readonly",false);   //可以读写
         model.addAttribute("vis_save",true);   //保存按钮显示
         model.addAttribute("vis_add",false);   //增加按钮隐藏
-        model.addAttribute("competition",competition);   //用户信息
+        model.addAttribute("register",register);   //用户信息
         return crud;
     }
 
     @RequestMapping("/update")  //修改
     @ResponseBody
-    public String update(Model model,@RequestBody Competition competition){
-        System.out.println(competition);
-        competitionService.updateById(competition);
+    public String update(Model model,@RequestBody Register register){
+        System.out.println(register);
+        registerService.updateById(register);
         return "sucess";
     }
 
     @RequestMapping("/toView")  //跳到查看页面
     public String toView(Model model,String id){
-        Competition competition=competitionService.selectById(id);
+        Register register=registerService.selectById(id);
         model.addAttribute("readonly",true);
         model.addAttribute("vis_save",false);   //保存按钮隐藏
         model.addAttribute("vis_add",false);   //增加按钮隐藏
-        model.addAttribute("competition",competition);   //用户信息
+        model.addAttribute("register",register);   //用户信息
         return crud;
     }
 

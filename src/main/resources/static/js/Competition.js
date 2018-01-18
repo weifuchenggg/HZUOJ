@@ -18,15 +18,27 @@ function DateFormat(value, row, index) {
     second = second < 10 ? ('0' + second) : second;
     return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
 }
-function to_bm() {
-    alert("报名成功");
+function to_bm(systemid) {
+    $.ajax({
+        type: "POST",
+        url: "/register/bm",
+        data: {competname:systemid},
+        success: function(data){
+            $('#table').datagrid('reload', {
+                /*filter: "aaaaaa",*/
+            });
+            alert("报名成功");
+        },
+        error:function(xhr,textStatus){
+        }
+    });
 }
 //报名参赛
 function register_bm(value, row, index) {
     if (value=="点击报名"){
-        return "<button type='button' class='btn btn-info' onclick='to_bm()'>点击报名</button>";
+        return "<button type='button' class='btn btn-info' onclick='to_bm(\""+row.systemid+"\")'>点击报名</button>";
     }
-    return "<button type=\"button\" class=\"btn btn-success\">value</button>";
+    return "<button type=\"button\" class=\"btn btn-success\">已报名</button>";
 }
 
 //跳转到竞赛主页
